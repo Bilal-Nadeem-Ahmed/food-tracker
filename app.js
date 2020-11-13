@@ -49,7 +49,7 @@ async function getFoodItem(id){
   const response=await fetch(`https://api.nal.usda.gov/fdc/v1/food/${id}?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0`);
  
    const responseData = await response.json()
- 
+  console.log(responseData)
 
   //uiSelectors.addToList.style.display="block";  
    const li = document.createElement("li");
