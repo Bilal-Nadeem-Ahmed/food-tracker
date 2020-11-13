@@ -16,25 +16,26 @@ async function geFood(val){
 
    const responseData = await response.json()
  responseData.foods.forEach(function(item,index){
-   // html+= `<li class="collection-item searchitem" id="${item.fdcId}">
-     //   <strong>${item.description}:</strong> <em>${item.brandOwner} </em>
-      //</li>`
-     // document.querySelector(uiSelectors.list).innerHTML = html;
+   
     const li = document.createElement("li");
     li.className="collection-item searchitem";
     document.querySelector(".list").appendChild(li);
     li.innerHTML=`<strong>${item.description}:</strong> <em>${item.brandOwner}`;
       
 
-  // console.log(item)
+  // event listner for item search
   li.addEventListener("click", function(e){
-    // remove search when it is collected
-    document.querySelector(uiSelectors.list).remove();
-    // 
-    console.log(item.fdcId);
+    
+  // call function to get the selected item
     getFoodItem(item.fdcId);
-  
-  
+    // delete the search items 
+    const list = document.querySelector(".list");
+    const search = document.querySelectorAll(".searchitem");
+    for (let i = 0; i < search.length; i++)
+{
+  list.removeChild(search[i]);
+}
+    
 e.preventDefault() 
 })
   })
@@ -44,37 +45,32 @@ e.preventDefault()
 
 // get the selected item and display its info
 async function getFoodItem(id){
+  
   const response=await fetch(`https://api.nal.usda.gov/fdc/v1/food/${id}?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0`);
  
    const responseData = await response.json()
-
+ 
 
   //uiSelectors.addToList.style.display="block";  
    const li = document.createElement("li");
    li.className="collection-item foodValue";
    document.querySelector(uiSelectors.addToList).appendChild(li);
    li.innerHTML=`<strong>${responseData.description}:</strong> <em>${responseData.brandOwner}`;
-      
-
   
-  
-
-
   }
 
 uiSelectors.submitBtn.addEventListener("click", function(e){
-  //if(document.hasOwnProperty(uiSelectors.addToList)=== true){
-  //  uiSelectors.addToList.style.display="none"; 
-  //}
-   
+  
+  // check if there is any data in input field
   if(uiSelectors.inputval.value===""){
     uiSelectors.inputval.value= "Enter a valid query";
   } else {
     geFood(uiSelectors.inputval.value);
    }
+   // clear input field
+   uiSelectors.inputval.value="";
   e.preventDefault();
 })
 
-// need to look at how to best set these functions up in terms of patterns , so we can use each others data, also need to figure out the diplay issue
 
  
