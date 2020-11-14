@@ -39,23 +39,24 @@ async function geFood(val){
 e.preventDefault() 
 })
   })
-  return 
-    
+  
+    return responseData
 };
 
 // get the selected item and display its info
 async function getFoodItem(id){
   
-  const response=await fetch(`https://api.nal.usda.gov/fdc/v1/food/${id}?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0`);
+  const responses=await fetch(`https://api.nal.usda.gov/fdc/v1/food/${id}?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0`);
  
-   const responseData = await response.json()
-  console.log(responseData)
+   const responsesData = await responses.json()
+  console.log(responsesData)
 
   //uiSelectors.addToList.style.display="block";  
    const li = document.createElement("li");
    li.className="collection-item foodValue";
    document.querySelector(uiSelectors.addToList).appendChild(li);
-   li.innerHTML=`<strong>${responseData.description}:</strong> <em>${responseData.brandOwner}`;
+   li.innerHTML=`<strong>${responsesData.description}:</strong> <em>${responsesData.brandOwner}</em> ${responsesData.servingSize} ${responsesData.servingSizeUnit}`;
+   console.log(responsesData.servingSize)
   
   }
 
