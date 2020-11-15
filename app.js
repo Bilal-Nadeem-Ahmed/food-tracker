@@ -15,7 +15,7 @@ const  uiSelectors = {
 
 async function geFood(val){
   const response=await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0&query=${val}&pageSize=20`)
- //const response=await fetch(`https://api.nal.usda.gov/fdc/v1/food/380864?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0`)
+ 
 
    const responseData = await response.json()
  responseData.foods.forEach(function(item,index){
@@ -72,8 +72,9 @@ async function getFoodItem(id){
 document.querySelector(uiSelectors.searchDiv).style.display= "none";
 // event listner for add food
 document.querySelector(uiSelectors.addDayBtn).addEventListener("click", function(e){
-  // show input field 
-  document.querySelector(uiSelectors.searchDiv).style.display= "block";
+  
+  addDay()
+  
   // hide the add day button
   document.querySelector(uiSelectors.addDayBtn).style.display="none";
 
@@ -89,6 +90,8 @@ document.querySelector(uiSelectors.addDayBtn).addEventListener("click", function
   if(uiSelectors.inputval.value===""){
     uiSelectors.inputval.value= "Enter a valid query";
   } else {
+    // hide the search box
+    document.querySelector(uiSelectors.searchDiv).style.display= "none";
     geFood(uiSelectors.inputval.value);
    }
    // clear input field
@@ -118,8 +121,8 @@ function addDay(){
   // put the new meal in the meals container 
   mealsDiv.appendChild(newDiv)
 
- //return addmeals(newDiv);
- return newDiv;
+ return addmeals(newDiv);
+ //return newDiv;
  
  
 }
@@ -133,8 +136,24 @@ function addmeals(newDiv){
   breakfastP.innerText = "Breakfast";
   newDiv.appendChild(breakfastDiv);
   breakfastDiv.appendChild(breakfastP);
+  let breakfastUl = document.createElement("ul");
+  breakfastUl.className= "collection";
+  breakfastDiv.appendChild(breakfastUl);
+
+  breakfastDiv.addEventListener("click", function(e){
+    // show input field 
+    document.querySelector(uiSelectors.searchDiv).style.display= "block";
+    let li = document.createElement("li");
+    li.className="collection-item";
+    breakfastUl.appendChild(li);
+    li.innerText = "ayayay"
+    console.log("ayay")
+
+    e.preventDefault()
+  })
 
 }
 
 //addmeals(document.getElementById("#fd-1"));
 // the above function needs to be completed. it works but as of yet does not do much appart from show the word breakfastin a paragraph in a breakfast div which is a child of the div the previous function it was connected to. i can imagine we would use this function in the return statement of the above div. we need to find a way to create a new ul undre this and when ever we click on the name of the meal , we add food items to the ul of that meal. that may work by changing the parameters of this function and the second function which gets data back from the id of the api, this may need to be nested in that function in order to be able to access all of its info, or just called in th =e return statement and passed that perticular vlue which we could use to add the info we need to the li's . also it will be a task to figure out how we will update the calories but we can deal with that later on. we also need to figure out how we will populate the data , maybe by making some of these functions in to one then it will work.?
+
