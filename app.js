@@ -1,6 +1,7 @@
 // api key hdg4q8tdGBR4tIeH4r14i9Zk1TcwYiKCxe2usGxr
 
-
+// var for the place to add the event lisner value to pass to the id api value, to add the items
+let res;
 const  uiSelectors = {
  submitBtn : document.getElementById("submitbtn"),
  inputval: document.getElementById("inpt"),
@@ -18,7 +19,7 @@ async function geFood(val){
  
 
    const responseData = await response.json()
- responseData.foods.forEach(function(item,index){
+ responseData.foods.forEach(function(item){
    
     const li = document.createElement("li");
     li.className="collection-item searchitem";
@@ -31,6 +32,7 @@ async function geFood(val){
     
   // call function to get the selected item
     getFoodItem(item.fdcId);
+    console.log(item.fdcId);
     // delete the search items 
     const list = document.querySelector(".list");
     const search = document.querySelectorAll(".searchitem");
@@ -42,7 +44,7 @@ async function geFood(val){
 e.preventDefault() 
 })
   })
-  
+    
     return responseData
 };
 
@@ -56,10 +58,12 @@ async function getFoodItem(id){
 
   //uiSelectors.addToList.style.display="block";  
    const li = document.createElement("li");
-   li.className="collection-item foodValue";
-   document.querySelector(uiSelectors.addToList).appendChild(li);
+   li.className="collection-item";
+   //document.querySelector(uiSelectors.addToList).appendChild(li);
+   res.target.nextSibling.appendChild(li);
    li.innerHTML=`<strong>${responsesData.description}:</strong> <em>${responsesData.brandOwner}</em> ${responsesData.servingSize} ${responsesData.servingSizeUnit}`;
    console.log(responsesData.servingSize)
+   res=undefined;
   
   }
 
@@ -77,6 +81,7 @@ document.querySelector(uiSelectors.addDayBtn).addEventListener("click", function
   
   // hide the add day button
   document.querySelector(uiSelectors.addDayBtn).style.display="none";
+  
 
 
   
@@ -85,6 +90,8 @@ document.querySelector(uiSelectors.addDayBtn).addEventListener("click", function
 
  // event listner for search
  uiSelectors.submitBtn.addEventListener("click", function(e){
+
+  
   
   // check if there is any data in input field
   if(uiSelectors.inputval.value===""){
@@ -141,19 +148,28 @@ function addmeals(newDiv){
   breakfastDiv.appendChild(breakfastUl);
 
   breakfastDiv.addEventListener("click", function(e){
+    //
+  let event=e;
+   res=event;
     // show input field 
     document.querySelector(uiSelectors.searchDiv).style.display= "block";
-    let li = document.createElement("li");
-    li.className="collection-item";
-    breakfastUl.appendChild(li);
-    li.innerText = "ayayay"
-    console.log("ayay")
+    //let li = document.createElement("li");
+    //li.className="collection-item";
+    //breakfastUl.appendChild(li);
+    //li.innerText = "ayayay"
+    //console.log("ayay")
 
     e.preventDefault()
   })
 
 }
 
-//addmeals(document.getElementById("#fd-1"));
-// the above function needs to be completed. it works but as of yet does not do much appart from show the word breakfastin a paragraph in a breakfast div which is a child of the div the previous function it was connected to. i can imagine we would use this function in the return statement of the above div. we need to find a way to create a new ul undre this and when ever we click on the name of the meal , we add food items to the ul of that meal. that may work by changing the parameters of this function and the second function which gets data back from the id of the api, this may need to be nested in that function in order to be able to access all of its info, or just called in th =e return statement and passed that perticular vlue which we could use to add the info we need to the li's . also it will be a task to figure out how we will update the calories but we can deal with that later on. we also need to figure out how we will populate the data , maybe by making some of these functions in to one then it will work.?
 
+//addmeals(document.getElementById("#fd-1"));
+
+
+//979713
+
+//https://api.nal.usda.gov/fdc/v1/foods/search?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0&query=bread&pageSize=20
+
+// api issues it is down. i have tried to change the functions a little so that they can work, i have declared a global variable at the top so the event when i click breakfast is passed to it. it is then accessed by the second api function and that has been updated to use that var to add an li to that list. This once done will be a great victory !!
