@@ -60,17 +60,11 @@ async function getFoodItem(id){
    const li = document.createElement("li");
    li.className="collection-item";
    //document.querySelector(uiSelectors.addToList).appendChild(li);
-   res.target.nextSibling.appendChild(li);
-   li.innerHTML=`<strong>${responsesData.description}:</strong> <em>${responsesData.brandOwner}</em> ${responsesData.servingSize} ${responsesData.servingSizeUnit}`;
-   console.log(responsesData.servingSize)
+   res.target.parentElement.nextSibling.appendChild(li);
+   li.innerHTML=`<strong>${responsesData.description}:</strong> <em>kcals: </em>${responsesData.labelNutrients.calories.value}  Serving Size: ${responsesData.servingSize} ${responsesData.servingSizeUnit} Fat:  ${responsesData.labelNutrients.fat.value.toFixed(1)}  Protien: ${responsesData.labelNutrients.protein.value.toFixed(1)}  Carbs: ${responsesData.labelNutrients.carbohydrates.value.toFixed(1)}`;
    res=undefined;
-  
+   document.querySelector(uiSelectors.addDayBtn).style.display="block";
   }
-
-
- 
-
-// create a class that will be used onclick to create a new date. the id of the class will me dinamically calculated as will part of the  classname. it will give you an option to add a meal to it , using an eventlistner on the button and if done so an input field will arrive, we will then use the function to show the list of search items and then once clicked we can add that item to the list. once that is done we can add multiple meals for the day and also edit each item and its content . we can use haschildnode to see if there is an element there already. then use a loop to get through to the end and add a new date, same for the list item
 
 // hide the search box
 document.querySelector(uiSelectors.searchDiv).style.display= "none";
@@ -82,17 +76,12 @@ document.querySelector(uiSelectors.addDayBtn).addEventListener("click", function
   // hide the add day button
   document.querySelector(uiSelectors.addDayBtn).style.display="none";
   
-
-
-  
   e.preventDefault()
 })
 
  // event listner for search
  uiSelectors.submitBtn.addEventListener("click", function(e){
 
-  
-  
   // check if there is any data in input field
   if(uiSelectors.inputval.value===""){
     uiSelectors.inputval.value= "Enter a valid query";
@@ -114,19 +103,23 @@ function addDay(){
 
   // create a div
   let newDiv=document.createElement("div");
+  let dayHeading = document.createElement("p");
+  dayHeading.className = "dayHeading";
 
   // check if there are any any others meals if so create the right classname  
   if (document.querySelectorAll(".foodDiv")===null){
     newDiv.className=`foodDiv fd-0`;
     newDiv.id="fd-0"
-
+    
   } else {
     newDiv.className=`foodDiv fd-${document.querySelectorAll(".foodDiv").length+1}`;
     newDiv.id= `fd-${document.querySelectorAll(".foodDiv").length+1}`;
+    dayHeading.innerText=`Day ${document.querySelectorAll(".foodDiv").length+1}`;
 
   }
   // put the new meal in the meals container 
   mealsDiv.appendChild(newDiv)
+  newDiv.appendChild(dayHeading);
 
  return addmeals(newDiv);
  //return newDiv;
@@ -136,31 +129,96 @@ function addDay(){
 // need to add an element which once it is clicked we launch
 
 function addmeals(newDiv){
-  
+  //breakfast
   let breakfastDiv= document.createElement("div");
   breakfastDiv.className="breakfast";
   let breakfastP = document.createElement("p");
-  breakfastP.innerText = "Breakfast";
+  breakfastP.innerText = "Breakfast  ";
   newDiv.appendChild(breakfastDiv);
+  let brIcon = document.createElement("i");
+  brIcon.className="fas fa-plus";
+  breakfastP.appendChild(brIcon);
   breakfastDiv.appendChild(breakfastP);
   let breakfastUl = document.createElement("ul");
   breakfastUl.className= "collection";
   breakfastDiv.appendChild(breakfastUl);
 
-  breakfastDiv.addEventListener("click", function(e){
+  brIcon.addEventListener("click", function(e){
     //
   let event=e;
    res=event;
     // show input field 
     document.querySelector(uiSelectors.searchDiv).style.display= "block";
-    //let li = document.createElement("li");
-    //li.className="collection-item";
-    //breakfastUl.appendChild(li);
-    //li.innerText = "ayayay"
-    //console.log("ayay")
-
     e.preventDefault()
   })
+
+  //lunch
+  let lunchDiv= document.createElement("div");
+  lunchDiv.className="lunch";
+  let lunchP = document.createElement("p");
+  lunchP.innerText = "lunch  ";
+  newDiv.appendChild(lunchDiv);
+  let luIcon = document.createElement("i");
+  luIcon.className="fas fa-plus";
+  lunchP.appendChild(luIcon);
+  lunchDiv.appendChild(lunchP);
+  let lunchUl = document.createElement("ul");
+  lunchUl.className= "collection";
+  lunchDiv.appendChild(lunchUl);
+
+  luIcon.addEventListener("click", function(e){
+    //
+  let event=e;
+   res=event;
+    // show input field 
+    document.querySelector(uiSelectors.searchDiv).style.display= "block";
+    e.preventDefault()
+  })
+  // Dinner
+  let dinnerDiv= document.createElement("div");
+  dinnerDiv.className="dinner";
+  let dinnerP = document.createElement("p");
+  dinnerP.innerText = "Dinner  ";
+  newDiv.appendChild(dinnerDiv);
+  let diIcon = document.createElement("i");
+  diIcon.className="fas fa-plus";
+  dinnerP.appendChild(diIcon);
+  dinnerDiv.appendChild(dinnerP);
+  let dinnerUl = document.createElement("ul");
+  dinnerUl.className= "collection";
+  dinnerDiv.appendChild(dinnerUl);
+
+  diIcon.addEventListener("click", function(e){
+    //
+  let event=e;
+   res=event;
+    // show input field 
+    document.querySelector(uiSelectors.searchDiv).style.display= "block";
+    e.preventDefault()
+  })
+  // snacks
+  let snacksDiv= document.createElement("div");
+  snacksDiv.className="Snacks";
+  let snacksP = document.createElement("p");
+  snacksP.innerText = "Snacks  ";
+  newDiv.appendChild(snacksDiv);
+  let snIcon = document.createElement("i");
+  snIcon.className="fas fa-plus";
+  snacksP.appendChild(snIcon);
+  snacksDiv.appendChild(snacksP);
+  let snacksUl = document.createElement("ul");
+  snacksUl.className= "collection";
+  snacksDiv.appendChild(snacksUl);
+
+  snIcon.addEventListener("click", function(e){
+    //
+  let event=e;
+   res=event;
+    // show input field 
+    document.querySelector(uiSelectors.searchDiv).style.display= "block";
+    e.preventDefault()
+  })
+  
 
 }
 

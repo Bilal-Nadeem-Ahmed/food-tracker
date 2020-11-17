@@ -8,10 +8,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <!--
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
@@ -26,17 +34,22 @@
     </nav>
     <div class="container">
       <br />
-      <button id="addDaybtn" class="btn yellow" type="submit">Add Day</button>
+      <!-- moved add day btn from here-->
       <div class="searchdiv">
         <input id="inpt" type="text" />
         <button id="submitbtn" class="btn green" type="submit">Search</button>
       </div>
 
       <ul class="list collection"></ul>
+
+      <!--
+        <i class="fas fa-plus"></i>
       <div class="selecteditmemdiv">
         <ul class="list collection selected results"></ul>
       </div>
+    -->
       <div class="mealsdiv"></div>
+      <button id="addDaybtn" class="btn yellow" type="submit">Add Day</button>
     </div>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
