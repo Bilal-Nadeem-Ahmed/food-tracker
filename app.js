@@ -14,7 +14,7 @@ const  uiSelectors = {
  
 
 async function geFood(val){
-  const response=await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0&query=${val}&pageSize=20`)
+  const response=await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0&query=${val}&pageSize=20&datatype=branded_food`)
  
 
    const responseData = await response.json()
@@ -221,9 +221,4 @@ function addmeals(newDiv){
 
 }
 
-
-//979713
-
-//https://api.nal.usda.gov/fdc/v1/foods/search?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0&query=bread&pageSize=20
-
-// api issues it is down. i have tried to change the functions a little so that they can work, i have declared a global variable at the top so the event when i click breakfast is passed to it. it is then accessed by the second api function and that has been updated to use that var to add an li to that list. This once done will be a great victory !! Also need to think about using a table instead, that way we can access indavidual values easier to update and perform neccessary calcs
+//https://api.nal.usda.gov/fdc/v1/foods/search?api_key=09EB3dIbSzfsmSwlykptslh9U1c8eNvNnKo9SfT0&query=mars&pageSize=20&dataType=branded
